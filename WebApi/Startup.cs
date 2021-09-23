@@ -40,6 +40,9 @@ namespace WebApi
                 services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver (s.GetRequiredService));
 
                 services.AddScoped<ProductoSchema>();
+                services.AddScoped<ProductoInputType>();
+                services.AddScoped<ProductoMutation>();
+                
                 services.AddGraphQL().AddGraphTypes(ServiceLifetime.Scoped);
                 services.Configure<KestrelServerOptions>(options =>
                 {

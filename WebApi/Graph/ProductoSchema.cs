@@ -12,6 +12,7 @@ namespace WebApi.Graph
         public ProductoSchema(IDependencyResolver resolver) : base(resolver)
         {
             Query = resolver.Resolve<ProductoQuery>();
+            Mutation = resolver.Resolve<ProductoMutation>();
         }
     }
 }
