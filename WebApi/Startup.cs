@@ -27,6 +27,7 @@ namespace WebApi
         }
 
         public IConfiguration Configuration { get; }
+         private readonly string _policyName = "CorsPolicy";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -49,13 +50,27 @@ namespace WebApi
                     options.AllowSynchronousIO = true;
                 });
 
+                services.AddCors(opt =>
+                {
+                    opt.AddPolicy(name: _policyName, builder =>
+                    {
+                        
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+           app.UseCors(_policyName);
            app.UseGraphQL<ProductoSchema>();
            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+          
 
         }
     }
